@@ -1,2 +1,1 @@
-# opd-frontend
-OPD Web app
+# OPD Frontend app

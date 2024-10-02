@@ -1,9 +1,20 @@
 import { UserRole } from '@services/user';
-import { AppRote } from './interfaces';
+import { AppRote, RouterName } from './interfaces';
+import { AuthPage } from '@pages/auth';
+import { Navigate } from 'react-router-dom';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [];
 
-export const UNAUTHORIZED_ROUTES: Array<AppRote> = [];
+export const UNAUTHORIZED_ROUTES: Array<Omit<AppRote, 'role'>> = [
+	{
+		path: RouterName.auth,
+		element: <AuthPage />,
+	},
+	{
+		path: RouterName.any,
+		element: <Navigate to={RouterName.auth} />,
+	},
+];
 
 export function buildRoutes(isAuth: boolean, role?: keyof typeof UserRole) {
 	if (!isAuth) return UNAUTHORIZED_ROUTES;

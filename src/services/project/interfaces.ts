@@ -11,7 +11,19 @@ export const ProjectStatus = {
 	rejected: 'rejected',
 };
 
+export interface CreateProject {
+	name: string;
+	description: string;
+
+	type: string;
+	maxUserNum: number;
+	problem: string;
+	wayOfSolving: string;
+	file: File;
+}
+
 export interface Project {
+	id: string;
 	name: string;
 	description: string;
 	poster: string;

@@ -4,12 +4,18 @@ import { AuthPage } from '@pages/auth';
 import { Navigate } from 'react-router-dom';
 import { RegisterPage } from '@pages/register';
 import { MainPage } from '@pages/main';
+import { CreateProjectPage } from '@pages/create-project';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
 		path: RouterName.main,
 		element: <MainPage />,
 		role: ['admin', 'mentor', 'student', 'teacher'],
+	},
+	{
+		path: RouterName.create_project,
+		element: <CreateProjectPage />,
+		role: ['mentor', 'teacher'],
 	},
 	{
 		path: RouterName.any,

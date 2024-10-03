@@ -5,6 +5,6 @@ import { fakeBaseQuery } from '@utils/promise-wrapper';
 export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: fakeBaseQuery(),
-	tagTypes: ['MyInfo', 'GroupList'],
+	tagTypes: ['MyInfo', 'GroupList', 'ProjectList'],
 	endpoints: () => ({}),
 });

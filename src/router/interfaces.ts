@@ -7,6 +7,7 @@ export enum RouterName {
 	register = '/register',
 	profile = '/profile',
 	user = '/user/:id',
+	create_project = '/create-project',
 	any = '*',
 }
 

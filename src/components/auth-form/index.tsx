@@ -4,8 +4,10 @@ import { LoginInfo } from '@services/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { AuthFormProps } from './interfaces';
 import { AuthFormInputWrapper } from './styles';
-import { Button, Input } from 'antd';
+import { Button, Input, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import { RouterName } from '@router/interfaces';
 
 export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 	const { control, handleSubmit } = useForm<LoginInfo>({
@@ -26,6 +28,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 
 	return (
 		<AuthFormInputWrapper>
+			<Typography.Title level={2}>Авторизация</Typography.Title>
 			<Controller
 				control={control}
 				name="email"
@@ -46,7 +49,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 				render={({ field: { value, onChange }, fieldState: { error } }) => (
 					<Input.Password
 						size="large"
-						placeholder="Password"
+						placeholder="Пароль"
 						value={value}
 						onChange={onChange}
 						status={error ? 'error' : ''}
@@ -57,6 +60,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 			<Button type="primary" onClick={handleAuth}>
 				Войти
 			</Button>
+
+			<Typography.Link>
+				<Link to={RouterName.register}>Нет аккаунта?</Link>
+			</Typography.Link>
 		</AuthFormInputWrapper>
 	);
 };

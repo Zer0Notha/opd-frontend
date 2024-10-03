@@ -2,6 +2,7 @@ import { UserRole } from '@services/user';
 import { AppRote, RouterName } from './interfaces';
 import { AuthPage } from '@pages/auth';
 import { Navigate } from 'react-router-dom';
+import { RegisterPage } from '@pages/register';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [];
 
@@ -9,6 +10,10 @@ export const UNAUTHORIZED_ROUTES: Array<Omit<AppRote, 'role'>> = [
 	{
 		path: RouterName.auth,
 		element: <AuthPage />,
+	},
+	{
+		path: RouterName.register,
+		element: <RegisterPage />,
 	},
 	{
 		path: RouterName.any,

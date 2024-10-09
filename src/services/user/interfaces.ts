@@ -1,3 +1,5 @@
+import { Group } from '@services/group';
+
 export interface User {
 	id: string;
 	email: string;
@@ -7,6 +9,7 @@ export interface User {
 	groupId: string;
 	vk: string;
 	role: keyof typeof UserRole;
+	group: Group;
 }
 
 export const UserRole = {

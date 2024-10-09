@@ -17,7 +17,7 @@ export const UserList: React.FC<UserListProps> = React.memo(
 			);
 
 		return (
-			<FlexLayout width="100%" direction="row" wrap="wrap">
+			<FlexLayout width="100%" direction="row" wrap="wrap" gap="5px">
 				{onlyAvatars && (
 					<Avatar.Group max={{ count: 3 }}>
 						{data?.users.map((item) => (
@@ -31,7 +31,7 @@ export const UserList: React.FC<UserListProps> = React.memo(
 				{!onlyAvatars && (
 					<>
 						{data?.users.map((item) => (
-							<FlexLayout width="100%" align="center">
+							<FlexLayout align="center">
 								<Avatar>
 									<UserDisplay id={item} />
 								</Avatar>

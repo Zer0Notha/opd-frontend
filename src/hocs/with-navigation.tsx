@@ -14,7 +14,7 @@ export const withNavigation = <T,>(
 ) => {
 	return (props: WithNavigation<T>): React.ReactElement => {
 		return (
-			<Layout style={{ height: '100vh' }}>
+			<Layout style={{ minHeight: '100vh' }}>
 				<Navbar
 					hideOptions={Boolean(props.hideMenuOptions)}
 					active={props.active}

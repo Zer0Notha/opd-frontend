@@ -1,8 +1,10 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { FlexLayout } from '@components/flex';
-import { UserDisplay } from '@components/user-display';
+import { UserDisplay, UserGroup } from '@components/user-display';
+import { RouterName } from '@router/interfaces';
 import { ProjectRequest, ProjectRequestStatus } from '@services/request';
 import { Button, TableProps, Tag } from 'antd';
+import { Link } from 'react-router-dom';
 
 export const tableProps = (
 	onApprove: (id: string) => void,
@@ -13,13 +15,24 @@ export const tableProps = (
 		dataIndex: 'userId',
 		render: (userId) => (
 			<>
-				<UserDisplay id={userId} />
+				<Link to={RouterName.user.replace(':id', userId)}>
+					<UserDisplay id={userId} />
+				</Link>
 			</>
 		),
 	},
 	{
 		title: 'Приоритет',
 		dataIndex: 'priority',
+	},
+	{
+		title: 'Группа',
+		dataIndex: 'userId',
+		render: (userId) => (
+			<>
+				<UserGroup id={userId} />
+			</>
+		),
 	},
 	{
 		title: 'Статус',

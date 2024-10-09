@@ -5,10 +5,10 @@ export const ProjectType = {
 };
 
 export const ProjectStatus = {
-	not_confirmed: 'not_confirmed',
-	opened: 'opened',
-	closed: 'closed',
-	rejected: 'rejected',
+	not_confirmed: 'Не подтвержден',
+	opened: 'Набор открыт',
+	closed: 'Набор закрыт',
+	rejected: 'Отклонен',
 };
 
 export interface CreateProject {

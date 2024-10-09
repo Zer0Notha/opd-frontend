@@ -18,6 +18,14 @@ export class RequestService {
 		return data;
 	}
 
+	static async getMyRequests(userId: string): Promise<ProjectRequestsResponse> {
+		const { data } = await network.get<ProjectRequestsResponse>(
+			`${this.url}/user/${userId}`
+		);
+
+		return data;
+	}
+
 	static async approveRequest(requestId: string): Promise<void> {
 		await network.post<ProjectRequestsResponse>(
 			`${this.url}/approve/${requestId}`

@@ -7,6 +7,10 @@ import { Navigation } from '@components/navigation';
 import { FlexLayout } from '@components/flex';
 import { Button, Dropdown, Typography } from 'antd';
 import { items } from './constants';
+import { AuthService } from '@services/auth';
+import { useDispatch } from 'react-redux';
+import { apiSlice } from '@store/api';
+import { toast } from 'react-toastify';
 
 export const Navbar = ({
 	hideOptions,
@@ -17,6 +21,7 @@ export const Navbar = ({
 }): React.ReactElement => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const dispatch = useDispatch();
 
 	//const isMobile = useMedia({ maxWidth: '576px' });
 
@@ -42,6 +47,16 @@ export const Navbar = ({
 		[navigate]
 	);
 
+	const handleLogout = useCallback(async () => {
+		try {
+			await AuthService.logout();
+			dispatch(apiSlice.util.invalidateTags(['MyInfo']));
+			window.location.reload();
+		} catch {
+			toast.error('Произошла ошибка');
+		}
+	}, [dispatch]);
+
 	return (
 		<Navigation
 			logo={
@@ -55,7 +70,7 @@ export const Navbar = ({
 			onSelectOption={handleNavigate}
 			footer={
 				<>
-					<Dropdown menu={{ items }}>
+					<Dropdown menu={{ items: items(handleLogout) }}>
 						<Button onClick={(e) => e.preventDefault()}>
 							{user?.firstName} {user?.secondName}
 						</Button>

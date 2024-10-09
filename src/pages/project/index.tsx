@@ -5,26 +5,47 @@ import { UserDisplay } from '@components/user-display';
 import { globals } from '@config/globals';
 import { withNavigation } from '@hocs/with-navigation';
 import { useUser } from '@hooks/use-user';
+import { RouterName } from '@router/interfaces';
+import { ProjectStatus } from '@services/project';
 import { RequestService } from '@services/request';
-import { useGetProjectQuery } from '@store/api';
-import { Button, Divider, Tabs, TabsProps, Typography } from 'antd';
+import {
+	apiSlice,
+	useGetMyRequestsQuery,
+	useGetProjectQuery,
+} from '@store/api';
+import {
+	Breadcrumb,
+	Button,
+	Divider,
+	Tabs,
+	TabsProps,
+	Tag,
+	Typography,
+} from 'antd';
 import { useCallback, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export const ProjectPage = withNavigation(() => {
 	const { id } = useParams();
 	const user = useUser();
+	const dispatch = useDispatch();
 
 	const { data, isLoading } = useGetProjectQuery(id ?? '');
+
+	const { data: myRequestsData, isLoading: isMyRequestsLoading } =
+		useGetMyRequestsQuery(user?.id ?? '');
 
 	const handleCreateRequest = useCallback(async () => {
 		try {
 			await RequestService.createRequest(id ?? '');
+			dispatch(apiSlice.util.invalidateTags(['MyRequests']));
 		} catch {
 			toast.error('Возникла ошибка при подаче заявки');
 		}
-	}, [id]);
+	}, [id, dispatch]);
 
 	const tabs: TabsProps['items'] = useMemo(() => {
 		const items = [
@@ -55,13 +76,19 @@ export const ProjectPage = withNavigation(() => {
 			width="100%"
 			height="100%"
 			direction="column"
-			padding="12px"
+			padding="16px"
 			gap="12px">
+			<Breadcrumb
+				items={[
+					{ title: <Link to={RouterName.main}>Главная</Link> },
+					{ title: <Link to={`/project/${id}`}>{data?.name}</Link> },
+				]}
+			/>
 			<FlexLayout
-				width="100%"
 				direction="row"
 				gap="24px"
 				justify="center"
+				wrap="wrap"
 				height="fit-content">
 				<FlexLayout
 					border="3px solid orange"
@@ -78,18 +105,35 @@ export const ProjectPage = withNavigation(() => {
 					/>
 				</FlexLayout>
 				<FlexLayout width="100%" gap="12px" direction="column">
-					<Typography.Title>{data?.name}</Typography.Title>
+					<FlexLayout align="center" gap="10px" justify="space-between">
+						<FlexLayout align="center" gap="10px">
+							<Typography.Title style={{ margin: 0 }} level={2}>
+								{data?.name}{' '}
+							</Typography.Title>
+							<Tag>{ProjectStatus[data?.status ?? 'not_confirmed']}</Tag>
+						</FlexLayout>
+						<FlexLayout>
+							{user?.id === data?.managerId && <Button>Редактировать</Button>}
+							{user?.id !== data?.managerId && (
+								<>
+									{!isMyRequestsLoading &&
+										!myRequestsData?.requests.find(
+											(item) => item.projectId === id
+										) &&
+										data?.status !== 'opened' && (
+											<Button onClick={handleCreateRequest}>
+												Присоединиться
+											</Button>
+										)}
+								</>
+							)}
+						</FlexLayout>
+					</FlexLayout>
 					<Typography.Text>{data?.description}</Typography.Text>
 					<FlexLayout direction="row" align="center">
 						<Typography.Text>Автор:</Typography.Text>{' '}
 						<UserDisplay id={data?.managerId ?? ''} />
 					</FlexLayout>
-				</FlexLayout>
-				<FlexLayout>
-					{user?.id === data?.managerId && <Button>Управление</Button>}
-					{user?.id !== data?.managerId && (
-						<Button onClick={handleCreateRequest}>Присоединиться</Button>
-					)}
 				</FlexLayout>
 			</FlexLayout>
 			<Divider />

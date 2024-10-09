@@ -11,8 +11,8 @@ export interface GroupResponse {
 }
 
 export const GroupType = {
-	bachelor: 'bachelor',
-	master: 'master',
-	specialist: 'specialist',
-	phd: 'phd',
+	bachelor: 'Б',
+	master: 'М',
+	specialist: 'С',
+	phd: 'А',
 };

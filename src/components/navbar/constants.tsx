@@ -1,4 +1,5 @@
 import { RouterName } from '@router/interfaces';
+import { AuthService } from '@services/auth';
 import { Button, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ export const items: MenuProps['items'] = [
 		type: 'divider',
 	},
 	{
-		label: <Button>Выйти</Button>,
+		label: <Button onClick={AuthService.logout}>Выйти</Button>,
 		key: '1',
 	},
 ];

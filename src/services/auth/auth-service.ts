@@ -20,4 +20,8 @@ export class AuthService {
 
 		return data;
 	}
+
+	static async logout(): Promise<void> {
+		await network.post<void>(`${this.url}/logout`, {});
+	}
 }

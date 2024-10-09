@@ -38,3 +38,7 @@ export interface Project {
 export type ProjectListResponse = {
 	projects: Array<Project>;
 };
+
+export type ProjectUsersResponse = {
+	users: Array<string>;
+};

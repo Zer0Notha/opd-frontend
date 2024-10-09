@@ -15,6 +15,7 @@ export interface FlexProps extends React.ComponentProps<'div'> {
 	overflow?: string;
 	maxHeight?: string;
 	minHeight?: string;
+	background?: string;
 	backgroudColor?: string;
 	border?: string;
 	borderRadius?: string;

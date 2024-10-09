@@ -1,7 +1,6 @@
 import { useUser } from '@hooks/use-user';
 import { RouterKeys } from '@router/interfaces';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
-import useMedia from 'use-media';
 import { NavOption } from './interfaces';
 import { useCallback, useMemo } from 'react';
 import { Navigation } from '@components/navigation';
@@ -19,7 +18,7 @@ export const Navbar = ({
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const isMobile = useMedia({ maxWidth: '576px' });
+	//const isMobile = useMedia({ maxWidth: '576px' });
 
 	const user = useUser();
 
@@ -35,10 +34,6 @@ export const Navbar = ({
 			return { ...item, selected: Boolean(matches) };
 		});
 	}, [location, optionMap, active]);
-
-	const handleLogout = useCallback(() => {
-		window.location.reload();
-	}, []);
 
 	const handleNavigate = useCallback(
 		(link: string) => {

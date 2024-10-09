@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { RegisterPage } from '@pages/register';
 import { MainPage } from '@pages/main';
 import { CreateProjectPage } from '@pages/create-project';
+import { ProjectPage } from '@pages/project';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
@@ -16,6 +17,11 @@ export const AUTHORIZED_ROUTES: Array<AppRote> = [
 		path: RouterName.create_project,
 		element: <CreateProjectPage />,
 		role: ['mentor', 'teacher'],
+	},
+	{
+		path: RouterName.project,
+		element: <ProjectPage />,
+		role: ['admin', 'mentor', 'student', 'teacher'],
 	},
 	{
 		path: RouterName.any,

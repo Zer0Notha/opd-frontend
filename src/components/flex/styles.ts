@@ -19,9 +19,13 @@ export const StyledFlexWrapper = styled('div')<FlexProps>`
 	max-height: ${(props) => props.maxHeight};
 	min-height: ${(props) => props.minHeight};
 	background-color: ${(props) => props.backgroudColor};
+	background: ${(props) => props.background};
 	border: ${(props) => props.border};
 	border-radius: ${(props) => props.borderRadius};
 	cursor: ${(props) => props.cursor};
 	flex: ${(props) => props.flex};
 	color: ${(props) => props.color};
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 `;

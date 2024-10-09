@@ -22,6 +22,10 @@ export interface CreateProject {
 	file: File;
 }
 
+export type UpdateProject = Omit<CreateProject, 'file' | 'maxUserNum'> & {
+	id: string;
+};
+
 export interface Project {
 	id: string;
 	name: string;

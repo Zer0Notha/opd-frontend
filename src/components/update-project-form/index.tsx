@@ -1,45 +1,28 @@
 import { createProjectSchema } from '@schemas/create-project-schema';
-import { CreateProjectFormProps } from './interfaces';
+import { UpdateProjectProps } from './interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CreateProject } from '@services/project';
+import { UpdateProject } from '@services/project';
 import { Controller, useForm } from 'react-hook-form';
-import { ProjectFormInputWrapper, StyledDropzone, StyledFile } from './styles';
-import { Button, Input, Select, Typography } from 'antd';
-import { useDropzone } from 'react-dropzone';
-import { useCallback, useState } from 'react';
-import { CloseOutlined } from '@ant-design/icons';
+import { Button, Input, Select } from 'antd';
 import { INITIAL_VALUES } from './constants';
+import { ProjectFormInputWrapper } from '@components/create-project-form/styles';
 
-export const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
+export const UpdateProjectForm: React.FC<UpdateProjectProps> = ({
 	onSubmit,
 	defaultValues = INITIAL_VALUES,
-	buttonText = 'Создать',
+	buttonText = 'Изменить',
 }) => {
-	const [files, setFiles] = useState<File | null>(null);
-
-	const onDrop = useCallback((acceptedFiles: Array<File>) => {
-		setFiles(acceptedFiles[0]);
-	}, []);
-
-	const { control, handleSubmit } = useForm<CreateProject>({
+	const { control, handleSubmit } = useForm<UpdateProject>({
 		defaultValues,
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//@ts-ignore
 		resolver: yupResolver(createProjectSchema),
 	});
 
-	const { getRootProps, getInputProps } = useDropzone({
-		onDrop,
-	});
-
-	const removeFile = useCallback(() => {
-		setFiles(null);
-	}, []);
-
 	const handleCreate = (): void => {
 		void (async (): Promise<void> => {
-			await handleSubmit(async (form: CreateProject): Promise<void> => {
-				if (files) onSubmit({ ...form, file: files });
+			await handleSubmit(async (form: UpdateProject): Promise<void> => {
+				onSubmit({ ...form, id: '' });
 			})();
 		})();
 	};
@@ -87,19 +70,6 @@ export const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
 			/>
 
 			<Controller
-				name="maxUserNum"
-				control={control}
-				render={({ field }) => (
-					<Input
-						placeholder="Максимальное число участников"
-						onChange={field.onChange}
-						value={field.value}
-						type="number"
-					/>
-				)}
-			/>
-
-			<Controller
 				name="problem"
 				control={control}
 				render={({ field }) => (
@@ -126,19 +96,6 @@ export const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
 					/>
 				)}
 			/>
-
-			{files && (
-				<StyledFile>
-					<Typography>{files.name}</Typography>
-					<CloseOutlined onClick={() => removeFile()} />
-				</StyledFile>
-			)}
-
-			<StyledDropzone {...getRootProps({ className: 'dropzone' })}>
-				<input {...getInputProps()} />
-
-				<Typography.Text>Кликните сюда или перетащите файлы</Typography.Text>
-			</StyledDropzone>
 
 			<Button type="primary" onClick={handleCreate}>
 				{buttonText}

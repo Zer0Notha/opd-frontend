@@ -6,6 +6,8 @@ import { RegisterPage } from '@pages/register';
 import { MainPage } from '@pages/main';
 import { CreateProjectPage } from '@pages/create-project';
 import { ProjectPage } from '@pages/project';
+import { ProjectInfo } from '@components/project-info';
+import { ProjectEdit } from '@components/project-edit';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
@@ -22,6 +24,18 @@ export const AUTHORIZED_ROUTES: Array<AppRote> = [
 		path: RouterName.project,
 		element: <ProjectPage />,
 		role: ['admin', 'mentor', 'student', 'teacher'],
+		children: [
+			{
+				path: '',
+				element: <ProjectInfo />,
+				role: ['admin', 'mentor', 'student', 'teacher'],
+			},
+			{
+				path: 'edit',
+				element: <ProjectEdit />,
+				role: ['admin', 'mentor', 'student', 'teacher'],
+			},
+		],
 	},
 	{
 		path: RouterName.any,

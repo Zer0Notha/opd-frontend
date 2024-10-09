@@ -4,6 +4,7 @@ import {
 	Project,
 	ProjectListResponse,
 	ProjectUsersResponse,
+	UpdateProject,
 } from './interfaces';
 
 export class ProjectService {
@@ -43,6 +44,17 @@ export class ProjectService {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
+			}
+		);
+
+		return data;
+	}
+
+	static async updateProject(args: UpdateProject): Promise<Project> {
+		const { data } = await network.post<Project>(
+			`${this.url}/update/${args.id}`,
+			{
+				...args,
 			}
 		);
 

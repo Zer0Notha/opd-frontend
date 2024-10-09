@@ -27,5 +27,5 @@ export const StyledFlexWrapper = styled('div')<FlexProps>`
 	color: ${(props) => props.color};
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
 `;

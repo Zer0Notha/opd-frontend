@@ -1,7 +1,7 @@
 export const ProjectType = {
-	scientific: 'scientific',
-	technical: 'technical',
-	service: 'service',
+	scientific: 'Научный',
+	technical: 'Технический',
+	service: 'Сервисный',
 };
 
 export const ProjectStatus = {
@@ -38,6 +38,11 @@ export interface Project {
 	status: keyof typeof ProjectStatus;
 	managerId: string;
 }
+
+export type ProjectListProps = {
+	status: keyof typeof ProjectStatus | null;
+	type: keyof typeof ProjectType | null;
+};
 
 export type ProjectListResponse = {
 	projects: Array<Project>;

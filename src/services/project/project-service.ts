@@ -2,6 +2,7 @@ import { network } from '@services/network';
 import {
 	CreateProject,
 	Project,
+	ProjectListProps,
 	ProjectListResponse,
 	ProjectUsersResponse,
 	UpdateProject,
@@ -10,8 +11,10 @@ import {
 export class ProjectService {
 	private static url = '/project';
 
-	static async getList(): Promise<ProjectListResponse> {
-		const { data } = await network.get<ProjectListResponse>(`${this.url}/list`);
+	static async getList(args: ProjectListProps): Promise<ProjectListResponse> {
+		const { data } = await network.get<ProjectListResponse>(
+			`${this.url}/list?status=${args.status}&type=${args.type}`
+		);
 
 		return data;
 	}

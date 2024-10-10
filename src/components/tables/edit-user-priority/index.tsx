@@ -25,6 +25,8 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import React from 'react';
 import { debounce } from '@utils/debounce';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { apiSlice } from '@store/api';
 
 export const tableProps = (): TableProps<ProjectRequest>['columns'] => [
 	{
@@ -94,6 +96,8 @@ export const EditUserPriority: React.FC<{
 }> = React.memo(({ requests, isLoading }) => {
 	const [dataSource, setDataSource] = useState<Array<ProjectRequest>>(requests);
 
+	const dispatch = useDispatch();
+
 	const sensors = useSensors(
 		useSensor(PointerSensor, {
 			activationConstraint: {
@@ -120,6 +124,8 @@ export const EditUserPriority: React.FC<{
 								priority: item.priority,
 							}))
 						);
+						dispatch(apiSlice.util.invalidateTags(['UserRequests']));
+						toast.success('Изменения сохранены');
 					} catch {
 						toast.error('Ошибка при сохранении приоритетов');
 					}

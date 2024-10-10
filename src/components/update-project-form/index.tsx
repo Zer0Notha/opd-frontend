@@ -1,4 +1,4 @@
-import { createProjectSchema } from '@schemas/create-project-schema';
+import { updateProjectSchema } from '@schemas/update-project-schema';
 import { UpdateProjectProps } from './interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UpdateProject } from '@services/project';
@@ -16,10 +16,10 @@ export const UpdateProjectForm: React.FC<UpdateProjectProps> = ({
 		defaultValues,
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		//@ts-ignore
-		resolver: yupResolver(createProjectSchema),
+		resolver: yupResolver(updateProjectSchema),
 	});
 
-	const handleCreate = (): void => {
+	const handleUpdate = (): void => {
 		void (async (): Promise<void> => {
 			await handleSubmit(async (form: UpdateProject): Promise<void> => {
 				onSubmit({ ...form, id: '' });
@@ -97,7 +97,7 @@ export const UpdateProjectForm: React.FC<UpdateProjectProps> = ({
 				)}
 			/>
 
-			<Button type="primary" onClick={handleCreate}>
+			<Button type="primary" onClick={handleUpdate}>
 				{buttonText}
 			</Button>
 		</ProjectFormInputWrapper>

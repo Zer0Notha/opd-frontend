@@ -8,6 +8,7 @@ import { CreateProjectPage } from '@pages/create-project';
 import { ProjectPage } from '@pages/project';
 import { ProjectInfo } from '@components/project-info';
 import { ProjectEdit } from '@components/project-edit';
+import { ProfilePage } from '@pages/profile';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
@@ -38,6 +39,11 @@ export const AUTHORIZED_ROUTES: Array<AppRote> = [
 		],
 	},
 	{
+		path: RouterName.profile,
+		element: <ProfilePage />,
+		role: ['admin', 'mentor', 'student', 'teacher'],
+	},
+	{
 		path: RouterName.any,
 		element: <Navigate to={RouterName.main} />,
 		role: ['admin', 'mentor', 'student', 'teacher'],
@@ -52,10 +58,6 @@ export const UNAUTHORIZED_ROUTES: Array<Omit<AppRote, 'role'>> = [
 	{
 		path: RouterName.register,
 		element: <RegisterPage />,
-	},
-	{
-		path: RouterName.any,
-		element: <Navigate to={RouterName.auth} />,
 	},
 ];
 

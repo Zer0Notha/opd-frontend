@@ -9,3 +9,18 @@ export const network = axios.create({
 	},
 	withCredentials: true,
 });
+
+network.interceptors.response.use(
+	(resposne) => resposne,
+	(error) => {
+		if (
+			error.response.status === 401 &&
+			window.location.pathname !== '/register' &&
+			window.location.pathname !== '/auth'
+		) {
+			window.location.replace('/auth');
+		}
+
+		throw new Error(error);
+	}
+);

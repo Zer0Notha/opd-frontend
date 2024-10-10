@@ -1,10 +1,11 @@
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { FlexLayout } from '@components/flex';
 import { ProjectInfoWidget } from '@components/project-info-widget';
 import { ProjectRequests } from '@components/project-requests';
 import { UserDisplay } from '@components/user-display';
 import { globals } from '@config/globals';
 import { useUser } from '@hooks/use-user';
-import { Project, ProjectStatus } from '@services/project';
+import { Project, ProjectService, ProjectStatus } from '@services/project';
 import { ProjectRequest, RequestService } from '@services/request';
 import { apiSlice } from '@store/api';
 import { Button, Divider, Tabs, TabsProps, Tag, Typography } from 'antd';
@@ -38,10 +39,32 @@ export const ProjectInfo = () => {
 		!myRequests.find((item) => item.projectId === id) &&
 		project?.status !== 'opened';
 
+	const allowedRoles = ['mentor', 'teacher'];
+
+	const showApproveRejectButtons = allowedRoles.includes(user?.role ?? '');
+
 	const handleCreateRequest = useCallback(async () => {
 		try {
 			await RequestService.createRequest(id ?? '');
 			dispatch(apiSlice.util.invalidateTags(['MyRequests']));
+		} catch {
+			toast.error('Возникла ошибка при подаче заявки');
+		}
+	}, [id, dispatch]);
+
+	const handleApproveProject = useCallback(async () => {
+		try {
+			await ProjectService.approveProject(id ?? '');
+			dispatch(apiSlice.util.invalidateTags(['Project']));
+		} catch {
+			toast.error('Возникла ошибка при подаче заявки');
+		}
+	}, [id, dispatch]);
+
+	const handleRejectProject = useCallback(async () => {
+		try {
+			await ProjectService.rejectProject(id ?? '');
+			dispatch(apiSlice.util.invalidateTags(['Project']));
 		} catch {
 			toast.error('Возникла ошибка при подаче заявки');
 		}
@@ -120,6 +143,16 @@ export const ProjectInfo = () => {
 											Присоединиться
 										</Button>
 									}
+								</>
+							)}
+							{showApproveRejectButtons && (
+								<>
+									<Button onClick={() => handleApproveProject()}>
+										<CheckOutlined />
+									</Button>
+									<Button onClick={() => handleRejectProject()}>
+										<CloseOutlined />
+									</Button>
 								</>
 							)}
 						</FlexLayout>

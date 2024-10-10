@@ -60,4 +60,12 @@ export class ProjectService {
 
 		return data;
 	}
+
+	static async approveProject(id: string): Promise<void> {
+		await network.post<void>(`${this.url}/approve/${id}`);
+	}
+
+	static async rejectProject(id: string): Promise<void> {
+		await network.post<void>(`${this.url}/reject/${id}`);
+	}
 }

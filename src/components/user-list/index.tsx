@@ -4,10 +4,13 @@ import { Avatar, Skeleton } from 'antd';
 import { UserListProps } from './interfaces';
 import React from 'react';
 import { UserDisplay } from '@components/user-display';
+import { useNavigate } from 'react-router-dom';
+import { RouterName } from '@router/interfaces';
 
 export const UserList: React.FC<UserListProps> = React.memo(
 	({ projectId, onlyAvatars = false }) => {
 		const { data, isLoading } = useGetProjectUsersQuery(projectId);
+		const navigate = useNavigate();
 
 		if (isLoading)
 			return (
@@ -21,7 +24,9 @@ export const UserList: React.FC<UserListProps> = React.memo(
 				{onlyAvatars && (
 					<Avatar.Group max={{ count: 3 }}>
 						{data?.users.map((item) => (
-							<Avatar>
+							<Avatar
+								style={{ cursor: 'pointer' }}
+								onClick={() => navigate(RouterName.user.replace(':id', item))}>
 								<UserDisplay id={item} />
 							</Avatar>
 						))}
@@ -31,7 +36,10 @@ export const UserList: React.FC<UserListProps> = React.memo(
 				{!onlyAvatars && (
 					<>
 						{data?.users.map((item) => (
-							<FlexLayout align="center">
+							<FlexLayout
+								align="center"
+								style={{ cursor: 'pointer' }}
+								onClick={() => navigate(RouterName.user.replace(':id', item))}>
 								<Avatar>
 									<UserDisplay id={item} />
 								</Avatar>

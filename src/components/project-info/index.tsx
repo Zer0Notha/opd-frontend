@@ -37,11 +37,13 @@ export const ProjectInfo = () => {
 		user?.id !== project?.managerId &&
 		!isMyRequestsLoading &&
 		!myRequests.find((item) => item.projectId === id) &&
-		project?.status !== 'opened';
+		project?.status === 'opened';
 
-	const allowedRoles = ['mentor', 'teacher'];
+	const allowedRoles = ['admin'];
 
-	const showApproveRejectButtons = allowedRoles.includes(user?.role ?? '');
+	const showApproveRejectButtons =
+		allowedRoles.includes(user?.role ?? '') &&
+		project?.status === 'not_confirmed';
 
 	const handleCreateRequest = useCallback(async () => {
 		try {
@@ -132,7 +134,7 @@ export const ProjectInfo = () => {
 							</Typography.Title>
 							<Tag>{ProjectStatus[project?.status ?? 'not_confirmed']}</Tag>
 						</FlexLayout>
-						<FlexLayout>
+						<FlexLayout gap="12px">
 							{showEditButton && (
 								<Button onClick={() => navigate('edit')}>Редактировать</Button>
 							)}
@@ -148,10 +150,10 @@ export const ProjectInfo = () => {
 							{showApproveRejectButtons && (
 								<>
 									<Button onClick={() => handleApproveProject()}>
-										<CheckOutlined />
+										Подтвердить <CheckOutlined />
 									</Button>
 									<Button onClick={() => handleRejectProject()}>
-										<CloseOutlined />
+										Отклонить <CloseOutlined />
 									</Button>
 								</>
 							)}

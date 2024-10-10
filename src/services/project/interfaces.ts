@@ -5,7 +5,7 @@ export const ProjectType = {
 };
 
 export const ProjectStatus = {
-	not_confirmed: 'Не подтвержден',
+	not_confirmed: 'На рассмотрении',
 	opened: 'Набор открыт',
 	closed: 'Набор закрыт',
 	rejected: 'Отклонен',

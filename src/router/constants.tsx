@@ -9,6 +9,7 @@ import { ProjectPage } from '@pages/project';
 import { ProjectInfo } from '@components/project-info';
 import { ProjectEdit } from '@components/project-edit';
 import { ProfilePage } from '@pages/profile';
+import { UserPage } from '@pages/user';
 
 export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
@@ -41,6 +42,11 @@ export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
 		path: RouterName.profile,
 		element: <ProfilePage />,
+		role: ['admin', 'mentor', 'student', 'teacher'],
+	},
+	{
+		path: RouterName.user,
+		element: <UserPage />,
 		role: ['admin', 'mentor', 'student', 'teacher'],
 	},
 	{

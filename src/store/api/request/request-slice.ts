@@ -9,12 +9,13 @@ export const requestApi = apiSlice.injectEndpoints({
 				apiSlicePromiseWrapper(() => RequestService.getProjectRequests(args)),
 			providesTags: ['ProjectRequests'],
 		}),
-		getMyRequests: build.query<ProjectRequestsResponse, string>({
+		getUserRequests: build.query<ProjectRequestsResponse, string>({
 			queryFn: (args: string) =>
-				apiSlicePromiseWrapper(() => RequestService.getMyRequests(args)),
-			providesTags: ['MyRequests'],
+				apiSlicePromiseWrapper(() => RequestService.getUserRequests(args)),
+			providesTags: ['UserRequests'],
 		}),
 	}),
 });
 
-export const { useGetProjectRequestsQuery, useGetMyRequestsQuery } = requestApi;
+export const { useGetProjectRequestsQuery, useGetUserRequestsQuery } =
+	requestApi;

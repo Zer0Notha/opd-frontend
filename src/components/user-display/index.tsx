@@ -33,7 +33,7 @@ export const UserGroup: React.FC<{ id: string }> = ({ id }) => {
 		);
 
 	return (
-		<FlexLayout width="fit-content" padding="12px 6px" height="fit-content">
+		<FlexLayout width="fit-content" height="fit-content">
 			<Typography.Text style={{ height: 'fit-content' }}>
 				{data?.group.name}-{GroupType[data?.group.type ?? 'bachelor']}
 				{data?.group.enteringYear.slice(2, 4)}

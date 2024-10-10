@@ -1,3 +1,5 @@
+import { Project } from '@services/project';
+
 export const ProjectRequestStatus = {
 	confirmed: 'Подтверждено',
 	rejected: 'Отклонено',
@@ -10,6 +12,7 @@ export interface ProjectRequest {
 	projectId: string;
 	priority: number;
 	status: keyof typeof ProjectRequestStatus;
+	project: Project;
 }
 
 export type ProjectRequestsResponse = {

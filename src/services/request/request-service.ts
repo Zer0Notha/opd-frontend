@@ -18,7 +18,9 @@ export class RequestService {
 		return data;
 	}
 
-	static async getMyRequests(userId: string): Promise<ProjectRequestsResponse> {
+	static async getUserRequests(
+		userId: string
+	): Promise<ProjectRequestsResponse> {
 		const { data } = await network.get<ProjectRequestsResponse>(
 			`${this.url}/user/${userId}`
 		);

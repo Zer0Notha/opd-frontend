@@ -46,7 +46,7 @@ export const ProjectInfo = () => {
 	const handleCreateRequest = useCallback(async () => {
 		try {
 			await RequestService.createRequest(id ?? '');
-			dispatch(apiSlice.util.invalidateTags(['MyRequests']));
+			dispatch(apiSlice.util.invalidateTags(['UserRequests']));
 		} catch {
 			toast.error('Возникла ошибка при подаче заявки');
 		}

@@ -18,6 +18,11 @@ export const projectApi = apiSlice.injectEndpoints({
 				apiSlicePromiseWrapper(() => ProjectService.getProject(args)),
 			providesTags: ['Project'],
 		}),
+		getUserProjects: build.query<ProjectListResponse, string>({
+			queryFn: (args: string) =>
+				apiSlicePromiseWrapper(() => ProjectService.getUserProjects(args)),
+			providesTags: ['UserProjects'],
+		}),
 		getProjectUsers: build.query<ProjectUsersResponse, string>({
 			queryFn: (args: string) =>
 				apiSlicePromiseWrapper(() => ProjectService.getProjectUsers(args)),
@@ -30,4 +35,5 @@ export const {
 	useGetProjectListQuery,
 	useGetProjectQuery,
 	useGetProjectUsersQuery,
+	useGetUserProjectsQuery,
 } = projectApi;

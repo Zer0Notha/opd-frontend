@@ -2,7 +2,7 @@ import { FlexLayout } from '@components/flex';
 import { withNavigation } from '@hocs/with-navigation';
 import { useUser } from '@hooks/use-user';
 import { RouterName } from '@router/interfaces';
-import { useGetMyRequestsQuery, useGetProjectQuery } from '@store/api';
+import { useGetUserRequestsQuery, useGetProjectQuery } from '@store/api';
 import { Breadcrumb } from 'antd';
 
 import { Link, Outlet } from 'react-router-dom';
@@ -15,7 +15,7 @@ export const ProjectPage = withNavigation(() => {
 	const { data, isLoading } = useGetProjectQuery(id ?? '');
 
 	const { data: myRequestsData, isLoading: isMyRequestsLoading } =
-		useGetMyRequestsQuery(user?.id ?? '');
+		useGetUserRequestsQuery(user?.id ?? '');
 
 	return (
 		<FlexLayout

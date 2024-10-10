@@ -16,6 +16,14 @@ export class ProjectService {
 		return data;
 	}
 
+	static async getUserProjects(id: string): Promise<ProjectListResponse> {
+		const { data } = await network.get<ProjectListResponse>(
+			`${this.url}/user/${id}`
+		);
+
+		return data;
+	}
+
 	static async getProject(id: string): Promise<Project> {
 		const { data } = await network.get<Project>(`${this.url}/${id}`);
 

@@ -13,8 +13,8 @@ export interface User {
 }
 
 export const UserRole = {
-	student: 'student',
-	teacher: 'teacher',
-	admin: 'admin',
-	mentor: 'mentor',
+	student: 'Студент',
+	teacher: 'Преподаватель',
+	admin: 'Администратор',
+	mentor: 'Ментор',
 };

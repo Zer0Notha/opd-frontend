@@ -7,7 +7,7 @@ export const UserPage = withNavigation(() => {
 	const { id } = useParams();
 	return (
 		<FlexLayout width="100%" height="100%" padding="12px">
-			<UserProfile id={id ?? ''} />
+			<UserProfile id={id ?? ''} isProfile={false} />
 		</FlexLayout>
 	);
 });

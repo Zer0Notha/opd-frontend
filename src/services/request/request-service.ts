@@ -39,4 +39,12 @@ export class RequestService {
 			`${this.url}/reject/${requestId}`
 		);
 	}
+
+	static async updateRequestPriority(
+		requests: Array<{ id: string; priority: number }>
+	): Promise<void> {
+		await network.post<ProjectRequestsResponse>(`${this.url}/priority`, {
+			forUpdate: requests,
+		});
+	}
 }

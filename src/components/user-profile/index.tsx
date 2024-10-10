@@ -1,4 +1,5 @@
 import { FlexLayout } from '@components/flex';
+import { EditUserPriority } from '@components/tables/edit-user-priority';
 import { UserProjects } from '@components/tables/user-projects';
 import { UserRequests } from '@components/tables/user-requests';
 import { UserGroup } from '@components/user-display';
@@ -11,7 +12,10 @@ import {
 import { Avatar, Divider, Tabs, TabsProps, Tag, Typography } from 'antd';
 import { useMemo } from 'react';
 
-export const UserProfile: React.FC<{ id: string }> = ({ id }) => {
+export const UserProfile: React.FC<{ id: string; isProfile: boolean }> = ({
+	id,
+	isProfile,
+}) => {
 	const { data, isLoading } = useGetUserQuery(id);
 	const { data: projects, isLoading: isProjectsLoading } =
 		useGetUserProjectsQuery(id);
@@ -34,7 +38,12 @@ export const UserProfile: React.FC<{ id: string }> = ({ id }) => {
 			{
 				key: '2',
 				label: 'Заявки',
-				children: (
+				children: isProfile ? (
+					<EditUserPriority
+						requests={requests?.requests ?? []}
+						isLoading={isProjectsLoading}
+					/>
+				) : (
 					<UserRequests
 						requests={requests?.requests ?? []}
 						isLoading={isRequestsLoading}
@@ -44,7 +53,13 @@ export const UserProfile: React.FC<{ id: string }> = ({ id }) => {
 		];
 
 		return items;
-	}, [requests, isRequestsLoading, isProjectsLoading, projects]);
+	}, [
+		projects?.projects,
+		isProjectsLoading,
+		isProfile,
+		requests?.requests,
+		isRequestsLoading,
+	]);
 
 	if (isLoading) return <>Loading...</>;
 

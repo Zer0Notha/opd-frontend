@@ -28,8 +28,8 @@ export const CreateProjectPage = withNavigation(() => {
 	);
 
 	return (
-		<FlexLayout height="100vh" width="100%" align="center" justify="center">
-			<FlexLayout>
+		<FlexLayout width="100%" justify="center" padding="30px 0 0 0">
+			<FlexLayout width="50%">
 				<CreateProjectForm onSubmit={handleCreateProject} />
 			</FlexLayout>
 		</FlexLayout>

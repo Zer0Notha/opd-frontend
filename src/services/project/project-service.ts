@@ -1,9 +1,11 @@
 import { network } from '@services/network';
 import {
 	CreateProject,
+	CreateProjectReport,
 	Project,
 	ProjectListProps,
 	ProjectListResponse,
+	ProjectReport,
 	ProjectUsersResponse,
 	UpdateProject,
 } from './interfaces';
@@ -48,6 +50,28 @@ export class ProjectService {
 
 		const { data } = await network.post<Project>(
 			`${this.url}/create`,
+			{
+				...args,
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			}
+		);
+
+		return data;
+	}
+
+	static async createProjectReport(
+		args: CreateProjectReport
+	): Promise<ProjectReport> {
+		const formData = new FormData();
+
+		formData.append('file', args.file, args.file.name);
+
+		const { data } = await network.post<ProjectReport>(
+			`${this.url}/create-report/${args.projectId}`,
 			{
 				...args,
 			},

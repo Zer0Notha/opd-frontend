@@ -37,6 +37,23 @@ export interface Project {
 	wayOfSolving: string;
 	status: keyof typeof ProjectStatus;
 	managerId: string;
+	reports: Array<ProjectReport>;
+}
+
+export interface ProjectReport {
+	id: string;
+	projectId: string;
+	authorId: string;
+	date: string;
+	text: string;
+}
+
+export interface CreateProjectReport {
+	date: string;
+	authorId: string;
+	text: string;
+	projectId: string;
+	file: File;
 }
 
 export type ProjectListProps = {

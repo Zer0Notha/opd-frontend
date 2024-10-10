@@ -1,6 +1,7 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { FlexLayout } from '@components/flex';
 import { ProjectInfoWidget } from '@components/project-info-widget';
+import { ProjectReports } from '@components/project-reports';
 import { ProjectRequests } from '@components/project-requests';
 import { UserDisplay } from '@components/user-display';
 import { globals } from '@config/globals';
@@ -78,6 +79,11 @@ export const ProjectInfo = () => {
 				key: '1',
 				label: 'Информация',
 				children: <ProjectInfoWidget project={project} isLoading={isLoading} />,
+			},
+			{
+				key: '3',
+				label: 'Отчеты',
+				children: <ProjectReports reports={project?.reports ?? []} />,
 			},
 		];
 

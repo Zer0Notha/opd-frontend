@@ -20,7 +20,7 @@ export const AUTHORIZED_ROUTES: Array<AppRote> = [
 	{
 		path: RouterName.create_project,
 		element: <CreateProjectPage />,
-		role: ['mentor', 'teacher'],
+		role: ['mentor', 'teacher', 'admin', 'student'],
 	},
 	{
 		path: RouterName.project,

@@ -46,6 +46,7 @@ export const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
 
 	return (
 		<ProjectFormInputWrapper>
+			<Typography.Title>Создать проект</Typography.Title>
 			<Controller
 				name="name"
 				control={control}

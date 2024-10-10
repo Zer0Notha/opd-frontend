@@ -2,7 +2,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import { FlexLayout } from '@components/flex';
 import { ProjectCard } from '@components/project-card';
 import { withNavigation } from '@hocs/with-navigation';
-import { useUser } from '@hooks/use-user';
 import { RouterName } from '@router/interfaces';
 import { useGetProjectListQuery } from '@store/api';
 import { Button, Dropdown, Typography } from 'antd';
@@ -16,7 +15,6 @@ export const MainPage = withNavigation(() => {
 	const [type, setType] = useState<keyof typeof ProjectType | null>(null);
 	const { data } = useGetProjectListQuery({ status, type });
 
-	const user = useUser();
 	const navigate = useNavigate();
 
 	const handleFilterChange = useCallback((filters: Array<string>) => {
@@ -48,13 +46,12 @@ export const MainPage = withNavigation(() => {
 						}}>
 						<Button onClick={(e) => e.preventDefault()}>Фильтры</Button>
 					</Dropdown>
-					{user?.role === 'teacher' && (
-						<Button
-							icon={<PlusOutlined />}
-							onClick={() => navigate(RouterName.create_project)}>
-							Создать проект
-						</Button>
-					)}
+
+					<Button
+						icon={<PlusOutlined />}
+						onClick={() => navigate(RouterName.create_project)}>
+						Предложить проект
+					</Button>
 				</FlexLayout>
 			</FlexLayout>
 			<FlexLayout width="100%" wrap="wrap" gap="16px">

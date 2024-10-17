@@ -8,6 +8,10 @@ export interface RegisterInfo {
 	patronymic?: string;
 }
 
+export interface RegisterInfoWithConfirm extends RegisterInfo {
+	confirmPassword: string;
+}
+
 export interface LoginInfo {
 	email: string;
 	password: string;

@@ -5,7 +5,6 @@ import { apiSlice } from '@store/api';
 import { useGetGroupListQuery } from '@store/api/group/group-slice';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
 export const RegisterPage = (): React.ReactElement => {
 	const { data: groupData } = useGetGroupListQuery();
@@ -19,7 +18,7 @@ export const RegisterPage = (): React.ReactElement => {
 				await AuthService.register(form);
 				dispatch(apiSlice.util.invalidateTags(['MyInfo']));
 			} catch (e) {
-				toast.error((e as Error).message ?? 'Возникла ошибка при входе');
+				console.log(e)
 			}
 		},
 		[dispatch]

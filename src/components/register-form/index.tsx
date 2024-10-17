@@ -7,6 +7,8 @@ import { RegisterFormInputWrapper } from './styles';
 import { Button, Input, Select, Typography, Form } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
+import { RouterName } from '@router/interfaces';
+import { Link } from 'react-router-dom';
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
 	onSubmit,
@@ -191,6 +193,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 			<Button type="primary" size="large" onClick={handleAuth}>
 				Зарегистрироваться
 			</Button>
+			<Form.Item>
+				<Typography.Link>
+					<Link to={RouterName.auth}>Уже есть аккаунт? Войти</Link>
+				</Typography.Link>
+			</Form.Item>
 		</RegisterFormInputWrapper>
 	);
 };

@@ -6,6 +6,4 @@ export const AuthFormInputWrapper = styled('div')`
 	display: flex;
 	text-align: center;
 	flex-direction: column;
-
-	gap: 12px;
 `;

@@ -6,8 +6,6 @@ export const ProjectFormInputWrapper = styled('div')`
 	display: flex;
 	text-align: center;
 	flex-direction: column;
-
-	gap: 12px;
 `;
 
 export const StyledDropzone = styled('div')`
@@ -24,7 +22,7 @@ export const StyledDropzone = styled('div')`
 	gap: 12px;
 
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 
 	align-items: center;
 

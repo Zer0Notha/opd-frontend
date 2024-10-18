@@ -112,7 +112,7 @@ export const ProjectInfo = () => {
 				height="fit-content">
 				<FlexLayout
 					border="3px solid orange"
-					width="45%"
+					width="25%"
 					padding="12px"
 					maxHeight="60%"
 					justify="flex-start"

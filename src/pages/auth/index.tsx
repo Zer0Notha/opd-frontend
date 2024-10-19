@@ -4,7 +4,6 @@ import { AuthService, LoginInfo } from '@services/auth';
 import { apiSlice } from '@store/api';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
 export const AuthPage = (): React.ReactElement => {
 	const dispatch = useDispatch();
@@ -15,7 +14,7 @@ export const AuthPage = (): React.ReactElement => {
 				await AuthService.login(form);
 				dispatch(apiSlice.util.invalidateTags(['MyInfo']));
 			} catch (e) {
-				toast.error((e as Error).message ?? 'Возникла ошибка при входе');
+				console.log(e)
 			}
 		},
 		[dispatch]

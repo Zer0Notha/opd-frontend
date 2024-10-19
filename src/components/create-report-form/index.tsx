@@ -33,6 +33,11 @@ export const CreateReportForm: React.FC<CreateReportFormProps> = ({
 
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,
+		accept: {
+			'image/jpeg': ['.jpeg', '.jpg'],
+			'image/png': ['.png']
+		},
+		maxSize: 10 * 1024 * 1024 // ограничение 10мб на файл
 	});
 
 	const removeFile = useCallback(() => {

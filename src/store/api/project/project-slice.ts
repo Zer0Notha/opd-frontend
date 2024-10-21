@@ -4,6 +4,7 @@ import {
 	ProjectListResponse,
 	ProjectService,
 	ProjectUsersResponse,
+	ReportFile,
 } from '@services/project';
 import { apiSlice } from '../api';
 import { apiSlicePromiseWrapper } from '@utils/promise-wrapper';
@@ -30,6 +31,10 @@ export const projectApi = apiSlice.injectEndpoints({
 				apiSlicePromiseWrapper(() => ProjectService.getProjectUsers(args)),
 			providesTags: ['ProjectUsers'],
 		}),
+		getReportFile: build.query<ReportFile, string>({
+			queryFn: (args: string) =>
+				apiSlicePromiseWrapper(() => ProjectService.getReportFile(args)),
+		}),
 	}),
 });
 
@@ -38,4 +43,5 @@ export const {
 	useGetProjectQuery,
 	useGetProjectUsersQuery,
 	useGetUserProjectsQuery,
+	useGetReportFileQuery,
 } = projectApi;

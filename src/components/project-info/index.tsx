@@ -46,6 +46,8 @@ export const ProjectInfo = () => {
 		allowedRoles.includes(user?.role ?? '') &&
 		project?.status === 'not_confirmed';
 
+	const showDeleteButton = allowedRoles.includes(user?.role ?? '');
+
 	const handleCreateRequest = useCallback(async () => {
 		try {
 			await RequestService.createRequest(id ?? '');
@@ -60,7 +62,7 @@ export const ProjectInfo = () => {
 			await ProjectService.approveProject(id ?? '');
 			dispatch(apiSlice.util.invalidateTags(['Project']));
 		} catch {
-			toast.error('Возникла ошибка при подаче заявки');
+			toast.error('Возникла ошибка при обработке заявки');
 		}
 	}, [id, dispatch]);
 
@@ -69,9 +71,26 @@ export const ProjectInfo = () => {
 			await ProjectService.rejectProject(id ?? '');
 			dispatch(apiSlice.util.invalidateTags(['Project']));
 		} catch {
-			toast.error('Возникла ошибка при подаче заявки');
+			toast.error('Возникла ошибка при обработке заявки');
 		}
 	}, [id, dispatch]);
+
+	const handleDeleteProject = useCallback(async () => {
+		try {
+			await ProjectService.deleteProject(id ?? '');
+			dispatch(
+				apiSlice.util.invalidateTags([
+					'Project',
+					'ProjectList',
+					'ProjectRequests',
+					'ProjectUsers',
+				])
+			);
+			navigate('/');
+		} catch {
+			toast.error('Возникла ошибка при удалении проекта');
+		}
+	}, [id, navigate, dispatch]);
 
 	const tabs: TabsProps['items'] = useMemo(() => {
 		const items = [
@@ -161,6 +180,11 @@ export const ProjectInfo = () => {
 									<Button onClick={() => handleRejectProject()}>
 										Отклонить <CloseOutlined />
 									</Button>
+								</>
+							)}
+							{showDeleteButton && (
+								<>
+									<Button onClick={handleDeleteProject}>Удалить проект</Button>
 								</>
 							)}
 						</FlexLayout>

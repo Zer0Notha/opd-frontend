@@ -7,6 +7,7 @@ import {
 	ProjectListResponse,
 	ProjectReport,
 	ProjectUsersResponse,
+	ReportFile,
 	UpdateProject,
 } from './interfaces';
 
@@ -85,6 +86,24 @@ export class ProjectService {
 		return data;
 	}
 
+	static async getReportFile(id: string): Promise<ReportFile> {
+		const { data } = await network.get<ReportFile>(
+			`${this.url}/get-report-file/${id}`
+		);
+
+		return data;
+	}
+
+	static async downloadReportFile(id: string): Promise<Blob> {
+		const { data } = await network.get<Blob>(`${this.url}/download/${id}`, {
+			headers: {
+				'Content-Type': 'blob',
+			},
+		});
+
+		return data;
+	}
+
 	static async updateProject(args: UpdateProject): Promise<Project> {
 		const { data } = await network.post<Project>(
 			`${this.url}/update/${args.id}`,
@@ -102,5 +121,9 @@ export class ProjectService {
 
 	static async rejectProject(id: string): Promise<void> {
 		await network.post<void>(`${this.url}/reject/${id}`);
+	}
+
+	static async deleteProject(id: string): Promise<void> {
+		await network.delete<void>(`${this.url}/${id}`);
 	}
 }

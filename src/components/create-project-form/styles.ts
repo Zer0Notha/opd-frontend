@@ -33,7 +33,7 @@ export const StyledDropzone = styled('div')`
 	}
 `;
 
-export const StyledFile = styled('div')`
+export const StyledFile = styled('div')<{ cursor?: string }>`
 	width: 100%;
 	padding: 16px;
 
@@ -48,6 +48,8 @@ export const StyledFile = styled('div')`
 	border-radius: 16px;
 
 	justify-content: space-between;
+
+	cursor: ${(props) => props.cursor};
 `;
 
 export const StyledFileContent = styled('div')`

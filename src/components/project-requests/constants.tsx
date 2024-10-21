@@ -48,7 +48,7 @@ export const tableProps = (
 		dataIndex: 'id',
 		render: (id: string, record: ProjectRequest) => (
 			<FlexLayout gap="12px">
-				{record.status === 'working' && (
+				{record.status === 'working' && !record.hasAnotherApprovedRequests && (
 					<>
 						<Button onClick={() => onApprove(id)}>
 							<CheckOutlined />

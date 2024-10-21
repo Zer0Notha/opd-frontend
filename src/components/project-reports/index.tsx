@@ -1,5 +1,6 @@
 import { CreateReportForm } from '@components/create-report-form';
 import { FlexLayout } from '@components/flex';
+import { ReportFile } from '@components/report-file';
 import { UserDisplay } from '@components/user-display';
 import { useUser } from '@hooks/use-user';
 import {
@@ -7,7 +8,7 @@ import {
 	ProjectReport,
 	ProjectService,
 } from '@services/project';
-import { useGetProjectUsersQuery } from '@store/api';
+import { apiSlice, useGetProjectUsersQuery } from '@store/api';
 import {
 	Button,
 	Collapse,
@@ -17,6 +18,7 @@ import {
 	Typography,
 } from 'antd';
 import { useCallback, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -27,6 +29,7 @@ export const ProjectReports: React.FC<{
 
 	const { id } = useParams();
 	const user = useUser();
+	const dispatch = useDispatch();
 
 	const { data, isLoading } = useGetProjectUsersQuery(id ?? '');
 
@@ -47,6 +50,7 @@ export const ProjectReports: React.FC<{
 							<UserDisplay id={item.authorId} />
 						</FlexLayout>
 						<Typography.Paragraph>{item.text}</Typography.Paragraph>
+						<ReportFile id={item.id} />
 					</FlexLayout>
 				),
 			})),
@@ -60,11 +64,12 @@ export const ProjectReports: React.FC<{
 					...values,
 					projectId: id ?? '',
 				});
+				dispatch(apiSlice.util.invalidateTags(['Project']));
 			} catch {
 				toast.error('При создании отчета произошла ошибка');
 			}
 		},
-		[id]
+		[id, dispatch]
 	);
 
 	if (isLoading)
@@ -94,7 +99,7 @@ export const ProjectReports: React.FC<{
 				)}
 			</FlexLayout>
 			<FlexLayout width="100%">
-				<Collapse style={{ width: '100%' }} items={collapseData} />
+				<Collapse style={{ width: '100%', gap: '12px' }} items={collapseData} />
 			</FlexLayout>
 		</FlexLayout>
 	);

@@ -26,6 +26,12 @@ export type UpdateProject = Omit<CreateProject, 'file' | 'maxUserNum'> & {
 	id: string;
 };
 
+export type ProjectTeamMember = {
+	id: string;
+	userId: string;
+	projectId: string;
+};
+
 export interface Project {
 	id: string;
 	name: string;
@@ -38,6 +44,7 @@ export interface Project {
 	status: keyof typeof ProjectStatus;
 	managerId: string;
 	reports: Array<ProjectReport>;
+	team: Array<ProjectTeamMember>;
 }
 
 export interface ProjectReport {
@@ -46,6 +53,13 @@ export interface ProjectReport {
 	authorId: string;
 	date: string;
 	text: string;
+}
+
+export interface ReportFile {
+	id: string;
+	name: string;
+	path: string;
+	reportId: string;
 }
 
 export interface CreateProjectReport {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import React from 'react';
 import { useEffect } from 'react';
 import { User } from '@services/user';

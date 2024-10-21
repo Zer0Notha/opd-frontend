@@ -18,7 +18,9 @@ export const ProjectInfoWidget: React.FC<{
 				<Typography.Paragraph>{project?.wayOfSolving}</Typography.Paragraph>
 			</FlexLayout>
 			<FlexLayout direction="column">
-				<Typography.Title level={3}>Команда</Typography.Title>
+				<Typography.Title level={3}>
+					Команда: {project?.team.length}/{project?.maxUserNum} человек
+				</Typography.Title>
 				{!isLoading && (
 					<UserList projectId={project?.id ?? ''} onlyAvatars={false} />
 				)}

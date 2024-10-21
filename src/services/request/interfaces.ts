@@ -13,6 +13,7 @@ export interface ProjectRequest {
 	priority: number;
 	status: keyof typeof ProjectRequestStatus;
 	project: Project;
+	hasAnotherApprovedRequests: boolean;
 }
 
 export type ProjectRequestsResponse = {

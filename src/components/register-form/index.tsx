@@ -9,21 +9,29 @@ import { UserOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
 import { RouterName } from '@router/interfaces';
 import { Link } from 'react-router-dom';
+import { GroupType } from '@services/group';
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
 	onSubmit,
 	groupData,
 }) => {
-	const { control, handleSubmit, formState: { errors } } = useForm<RegisterInfoWithConfirm>({
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<RegisterInfoWithConfirm>({
 		resolver: yupResolver(registerSchema),
 	});
 
 	const handleAuth = (): void => {
 		void (async (): Promise<void> => {
-			await handleSubmit(async (form: RegisterInfoWithConfirm): Promise<void> => {
-				const { confirmPassword, ...rest } = form; // Извлекаем confirmPassword и сохраняем остальные поля в rest
-				onSubmit(rest as RegisterInfo);
-			})();
+			await handleSubmit(
+				async (form: RegisterInfoWithConfirm): Promise<void> => {
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					const { confirmPassword, ...rest } = form; // Извлекаем confirmPassword и сохраняем остальные поля в rest
+					onSubmit(rest as RegisterInfo);
+				}
+			)();
 		})();
 	};
 
@@ -31,7 +39,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 		() =>
 			groupData.map((item) => ({
 				value: item.id,
-				label: `${item.name}-${item.type}${item.enteringYear}`,
+				label: `${item.name}-${GroupType[item.type]}${item.enteringYear.slice(
+					2,
+					4
+				)}`,
 			})),
 		[groupData]
 	);
@@ -39,11 +50,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 	return (
 		<RegisterFormInputWrapper>
 			<Typography.Title level={2}>Регистрация</Typography.Title>
-			<Form.Item 
-			hasFeedback
-			validateStatus={errors.email ? 'error' : ''}
-			help={errors.email?.message}
-			>
+			<Form.Item
+				hasFeedback
+				validateStatus={errors.email ? 'error' : ''}
+				help={errors.email?.message}>
 				<Controller
 					control={control}
 					name="email"
@@ -60,10 +70,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.password ? 'error' : ''}
-			help={errors.password?.message}
-			>
+				hasFeedback
+				validateStatus={errors.password ? 'error' : ''}
+				help={errors.password?.message}>
 				<Controller
 					control={control}
 					name="password"
@@ -79,10 +88,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.confirmPassword ? 'error' : ''}
-			help={errors.confirmPassword?.message}
-			>
+				hasFeedback
+				validateStatus={errors.confirmPassword ? 'error' : ''}
+				help={errors.confirmPassword?.message}>
 				<Controller
 					control={control}
 					name="confirmPassword"
@@ -98,10 +106,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.vk ? 'error' : ''}
-			help={errors.vk?.message}
-			>
+				hasFeedback
+				validateStatus={errors.vk ? 'error' : ''}
+				help={errors.vk?.message}>
 				<Controller
 					control={control}
 					name="vk"
@@ -117,10 +124,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.groupId ? 'error' : ''}
-			help={errors.groupId?.message}
-			>
+				hasFeedback
+				validateStatus={errors.groupId ? 'error' : ''}
+				help={errors.groupId?.message}>
 				<Controller
 					control={control}
 					name="groupId"
@@ -137,10 +143,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.firstName ? 'error' : ''}
-			help={errors.firstName?.message}
-			>
+				hasFeedback
+				validateStatus={errors.firstName ? 'error' : ''}
+				help={errors.firstName?.message}>
 				<Controller
 					control={control}
 					name="firstName"
@@ -156,10 +161,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.secondName ? 'error' : ''}
-			help={errors.secondName?.message}
-			>
+				hasFeedback
+				validateStatus={errors.secondName ? 'error' : ''}
+				help={errors.secondName?.message}>
 				<Controller
 					control={control}
 					name="secondName"

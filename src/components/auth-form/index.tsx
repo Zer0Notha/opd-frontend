@@ -10,7 +10,11 @@ import { Link } from 'react-router-dom';
 import { RouterName } from '@router/interfaces';
 
 export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
-	const { control, handleSubmit, formState: { errors } } = useForm<LoginInfo>({
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<LoginInfo>({
 		defaultValues: {
 			email: '',
 			password: '',
@@ -30,10 +34,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 		<AuthFormInputWrapper>
 			<Typography.Title level={2}>Авторизация</Typography.Title>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.email ? 'error' : ''}
-			help={errors.email?.message}
-			>
+				hasFeedback
+				validateStatus={errors.email ? 'error' : ''}
+				help={errors.email?.message}>
 				<Controller
 					control={control}
 					name="email"
@@ -41,6 +44,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 						<Input
 							size="large"
 							placeholder="Email"
+							name="email"
 							prefix={<UserOutlined />}
 							value={value}
 							onChange={onChange}
@@ -50,10 +54,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 				/>
 			</Form.Item>
 			<Form.Item
-			hasFeedback
-			validateStatus={errors.password ? 'error' : ''}
-			help={errors.password?.message}
-			>
+				hasFeedback
+				validateStatus={errors.password ? 'error' : ''}
+				help={errors.password?.message}>
 				<Controller
 					control={control}
 					name="password"
@@ -61,6 +64,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
 						<Input.Password
 							size="large"
 							placeholder="Пароль"
+							name="password"
 							value={value}
 							onChange={onChange}
 							status={error ? 'error' : ''}
